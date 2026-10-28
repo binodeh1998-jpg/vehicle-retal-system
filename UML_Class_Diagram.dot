@@ -1,0 +1,111 @@
+digraph UML {
+  graph [rankdir=BT, splines=polyline, nodesep=0.5, ranksep=0.9, fontname="DejaVu Sans", pad=0.3];
+  node  [shape=plain, fontname="DejaVu Sans", fontsize=10];
+  edge  [fontname="DejaVu Sans", fontsize=9];
+
+  Maintainable [label=<
+  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFF8DC">
+   <TR><TD BORDER="1" SIDES="B" ALIGN="CENTER"><I>&lt;&lt;interface&gt;&gt;</I><BR/><B>Maintainable</B></TD></TR>
+   <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"> </TD></TR>
+   <TR><TD ALIGN="LEFT">+ performMaintenance(): void<BR ALIGN="LEFT"/>+ needsMaintenance(): boolean<BR ALIGN="LEFT"/></TD></TR>
+  </TABLE>>];
+
+  Vehicle [label=<
+  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#E8F0FE">
+   <TR><TD BORDER="1" SIDES="B"><I>&lt;&lt;abstract&gt;&gt;</I><BR/><B><I>Vehicle</I></B></TD></TR>
+   <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B">- vehicleId: String<BR ALIGN="LEFT"/>- brand: String<BR ALIGN="LEFT"/>- model: String<BR ALIGN="LEFT"/>- year: int<BR ALIGN="LEFT"/>- dailyPrice: double<BR ALIGN="LEFT"/>- available: boolean<BR ALIGN="LEFT"/>- maintenanceRequired: boolean<BR ALIGN="LEFT"/></TD></TR>
+   <TR><TD ALIGN="LEFT"># Vehicle(id, brand, model, year, dailyPrice)<BR ALIGN="LEFT"/><I>+ calculateRentalCost(days: int, optionalService: boolean): double</I><BR ALIGN="LEFT"/>+ getOptionalServiceName(): String<BR ALIGN="LEFT"/># baseCost(days: int): double<BR ALIGN="LEFT"/>+ displayInfo(): void<BR ALIGN="LEFT"/>+ flagForMaintenance(): void<BR ALIGN="LEFT"/># clearMaintenanceFlag(): void<BR ALIGN="LEFT"/>+ isRentable(): boolean<BR ALIGN="LEFT"/>+ setDailyPrice(price: double): void<BR ALIGN="LEFT"/>+ setAvailable(available: boolean): void<BR ALIGN="LEFT"/>+ getters...<BR ALIGN="LEFT"/></TD></TR>
+  </TABLE>>];
+
+  Car [label=<
+  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#E6F4EA">
+   <TR><TD BORDER="1" SIDES="B"><B>Car</B></TD></TR>
+   <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B">+ <U>INSURANCE_FEE_PER_DAY: double = 15.0</U> {final}<BR ALIGN="LEFT"/>- seats: int<BR ALIGN="LEFT"/>- transmission: String<BR ALIGN="LEFT"/></TD></TR>
+   <TR><TD ALIGN="LEFT">+ Car(..., seats, transmission)<BR ALIGN="LEFT"/>+ Car(id, brand, model, year, price)<BR ALIGN="LEFT"/>+ calculateRentalCost(days, optionalService): double<BR ALIGN="LEFT"/>+ getOptionalServiceName(): String<BR ALIGN="LEFT"/>+ displayInfo(): void<BR ALIGN="LEFT"/>+ performMaintenance(): void<BR ALIGN="LEFT"/>+ needsMaintenance(): boolean<BR ALIGN="LEFT"/></TD></TR>
+  </TABLE>>];
+
+  Motorcycle [label=<
+  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#E6F4EA">
+   <TR><TD BORDER="1" SIDES="B"><B>Motorcycle</B></TD></TR>
+   <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B">+ <U>HELMET_FEE_PER_DAY: double = 5.0</U> {final}<BR ALIGN="LEFT"/>- engineCc: int<BR ALIGN="LEFT"/>- helmetIncluded: boolean<BR ALIGN="LEFT"/></TD></TR>
+   <TR><TD ALIGN="LEFT">+ Motorcycle(..., engineCc, helmetIncluded)<BR ALIGN="LEFT"/>+ Motorcycle(..., engineCc)<BR ALIGN="LEFT"/>+ calculateRentalCost(days, optionalService): double<BR ALIGN="LEFT"/>+ getOptionalServiceName(): String<BR ALIGN="LEFT"/>+ displayInfo(): void<BR ALIGN="LEFT"/>+ performMaintenance(): void<BR ALIGN="LEFT"/>+ needsMaintenance(): boolean<BR ALIGN="LEFT"/></TD></TR>
+  </TABLE>>];
+
+  Truck [label=<
+  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#E6F4EA">
+   <TR><TD BORDER="1" SIDES="B"><B>Truck</B></TD></TR>
+   <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B">+ <U>SERVICE_FEE: double = 50.0</U> {final}<BR ALIGN="LEFT"/>- maxLoadTons: double<BR ALIGN="LEFT"/></TD></TR>
+   <TR><TD ALIGN="LEFT">+ Truck(..., maxLoadTons)<BR ALIGN="LEFT"/>+ calculateRentalCost(days, optionalService): double<BR ALIGN="LEFT"/>+ displayInfo(): void<BR ALIGN="LEFT"/>+ performMaintenance(): void<BR ALIGN="LEFT"/>+ needsMaintenance(): boolean<BR ALIGN="LEFT"/></TD></TR>
+  </TABLE>>];
+
+  Customer [label=<
+  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FDECEA">
+   <TR><TD BORDER="1" SIDES="B"><B>Customer</B></TD></TR>
+   <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B">- customerId: String<BR ALIGN="LEFT"/>- fullName: String<BR ALIGN="LEFT"/>- phone: String<BR ALIGN="LEFT"/>- email: String<BR ALIGN="LEFT"/>- licenseNumber: String<BR ALIGN="LEFT"/>- rentals: ArrayList&lt;Rental&gt;<BR ALIGN="LEFT"/></TD></TR>
+   <TR><TD ALIGN="LEFT">+ addRental(rental: Rental): void<BR ALIGN="LEFT"/>+ getRentals(): ArrayList&lt;Rental&gt;<BR ALIGN="LEFT"/>+ getActiveRentals(): ArrayList&lt;Rental&gt;<BR ALIGN="LEFT"/>+ setPhone(phone: String): void<BR ALIGN="LEFT"/>+ setEmail(email: String): void<BR ALIGN="LEFT"/>+ displayInfo(): void<BR ALIGN="LEFT"/></TD></TR>
+  </TABLE>>];
+
+  Rental [label=<
+  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FDECEA">
+   <TR><TD BORDER="1" SIDES="B"><B>Rental</B></TD></TR>
+   <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B">- <U>rentalCounter: int</U><BR ALIGN="LEFT"/>- rentalId: String<BR ALIGN="LEFT"/>- customer: Customer<BR ALIGN="LEFT"/>- vehicle: Vehicle<BR ALIGN="LEFT"/>- days: int<BR ALIGN="LEFT"/>- optionalServiceUsed: boolean<BR ALIGN="LEFT"/>- totalCost: double<BR ALIGN="LEFT"/>- status: Status<BR ALIGN="LEFT"/></TD></TR>
+   <TR><TD ALIGN="LEFT">+ Rental(customer, vehicle, days, optionalServiceUsed)<BR ALIGN="LEFT"/>+ complete(): void<BR ALIGN="LEFT"/>+ isActive(): boolean<BR ALIGN="LEFT"/>+ isCompleted(): boolean<BR ALIGN="LEFT"/>+ displayInfo(): void<BR ALIGN="LEFT"/></TD></TR>
+  </TABLE>>];
+
+  Status [label=<
+  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#F3E8FD">
+   <TR><TD BORDER="1" SIDES="B"><I>&lt;&lt;enumeration&gt;&gt;</I><BR/><B>Rental.Status</B></TD></TR>
+   <TR><TD ALIGN="LEFT">ACTIVE<BR ALIGN="LEFT"/>COMPLETED<BR ALIGN="LEFT"/></TD></TR>
+  </TABLE>>];
+
+  RentalSystem [label=<
+  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFF3E0">
+   <TR><TD BORDER="1" SIDES="B"><B>RentalSystem</B></TD></TR>
+   <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B">- vehicles: ArrayList&lt;Vehicle&gt;<BR ALIGN="LEFT"/>- customers: ArrayList&lt;Customer&gt;<BR ALIGN="LEFT"/>- rentals: ArrayList&lt;Rental&gt;<BR ALIGN="LEFT"/></TD></TR>
+   <TR><TD ALIGN="LEFT">+ addCar / addMotorcycle / addTruck(...): void<BR ALIGN="LEFT"/>+ addVehicle(vehicle: Vehicle): void<BR ALIGN="LEFT"/>+ findVehicleById(id: String): Vehicle<BR ALIGN="LEFT"/>+ searchVehicles(keyword: String): ArrayList&lt;Vehicle&gt;<BR ALIGN="LEFT"/>+ searchVehicles(min: double, max: double): ArrayList&lt;Vehicle&gt;<BR ALIGN="LEFT"/>+ getAvailableVehicles() / getRentedVehicles()<BR ALIGN="LEFT"/>+ updateVehiclePrice(id: String, price: double): void<BR ALIGN="LEFT"/>+ registerCustomer(...): void<BR ALIGN="LEFT"/>+ updateCustomerPhone / updateCustomerEmail(...): void<BR ALIGN="LEFT"/>+ rentVehicle(customerId, vehicleId, days, service): Rental<BR ALIGN="LEFT"/>+ returnVehicle(rentalId: String): Rental<BR ALIGN="LEFT"/>+ getRentalHistory(customerId: String): ArrayList&lt;Rental&gt;<BR ALIGN="LEFT"/>+ calculateTotalRevenue(): double<BR ALIGN="LEFT"/>+ flagVehicleForMaintenance(vehicleId: String): void<BR ALIGN="LEFT"/>+ getVehiclesNeedingMaintenance(): ArrayList&lt;Vehicle&gt;<BR ALIGN="LEFT"/>+ performMaintenance(vehicleId: String): void<BR ALIGN="LEFT"/>+ getMaintainableFleet(): ArrayList&lt;Maintainable&gt;<BR ALIGN="LEFT"/>+ countNeedingMaintenance(): int<BR ALIGN="LEFT"/></TD></TR>
+  </TABLE>>];
+
+  Main [label=<
+  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF">
+   <TR><TD BORDER="1" SIDES="B"><B>Main</B></TD></TR>
+   <TR><TD ALIGN="LEFT">+ <U>main(args: String[]): void</U><BR ALIGN="LEFT"/>- console menu and input helpers<BR ALIGN="LEFT"/></TD></TR>
+  </TABLE>>];
+
+  Exception [label=<
+  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#EEEEEE">
+   <TR><TD><B>java.lang.Exception</B></TD></TR></TABLE>>];
+  InvalidInputException [label=<
+  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#EEEEEE">
+   <TR><TD><B>InvalidInputException</B></TD></TR></TABLE>>];
+  VehicleNotAvailableException [label=<
+  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#EEEEEE">
+   <TR><TD><B>VehicleNotAvailableException</B></TD></TR></TABLE>>];
+
+  // inheritance (hollow triangle)
+  edge [arrowhead=empty, style=solid];
+  Car -> Vehicle; Motorcycle -> Vehicle; Truck -> Vehicle;
+  InvalidInputException -> Exception; VehicleNotAvailableException -> Exception;
+
+  // realization (dashed hollow triangle)
+  edge [arrowhead=empty, style=dashed];
+  Car -> Maintainable; Motorcycle -> Maintainable; Truck -> Maintainable;
+
+  // associations
+  edge [arrowhead=vee, arrowtail=vee, dir=both, style=solid];
+  Rental -> Customer [label="customer", headlabel="1", taillabel="0..*", labeldistance=2.5];
+  edge [arrowhead=vee, dir=forward, style=solid];
+  Rental -> Vehicle  [label="vehicle",  headlabel="1", taillabel="0..*", labeldistance=2.5];
+  Rental -> Status   [label="status"];
+
+  // aggregation (RentalSystem holds the ArrayLists)
+  edge [arrowhead=odiamond, dir=forward, style=solid, label=""];
+  Vehicle -> RentalSystem  [taillabel="0..*", headlabel="1", labeldistance=2.5];
+  Customer -> RentalSystem [taillabel="0..*", headlabel="1", labeldistance=2.5];
+  Rental -> RentalSystem   [taillabel="0..*", headlabel="1", labeldistance=2.5];
+
+  // dependency
+  edge [arrowhead=vee, dir=forward, style=dashed];
+  Main -> RentalSystem [label="uses", dir=forward];
+  RentalSystem -> InvalidInputException [label="throws", constraint=false];
+  RentalSystem -> VehicleNotAvailableException [label="throws", constraint=false];
+}
